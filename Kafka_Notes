@@ -182,3 +182,43 @@ kafka-console-producer.sh --topic quickstart --bootstrap-server localhost:9092
 
 Consumer:
 kafka-console-consumer.sh --topic quickstart --bootstrap-server localhost:9092 --from-beginning
+
+************************************************************************************
+
+Producer -------->kafka -------->Consumer
+
+Happy path: 
+
+publishing below message from publisher
+{
+    "id": 55676,
+    "fistName": "Albel",
+    "email": "albelsing21@gmail.com",
+    "contactNo": "8959460021"
+}
+
+and consuming same message from topic at the consumer end.
+{
+    "id": 55676,
+    "fistName": "Albel",
+    "email": "albelsing21@gmail.com",
+    "contactNo": "8959460021"
+}
+
+what if data got changed at the publisher end.
+
+{
+    "id": 55676,
+    "fistName": "Albel",
+    "lastName": "Bhodeliya",
+    "email": "albelsing21@gmail.com",
+    "mobile": "8959460021"
+}
+
+in this case consumer won't consume this message and this is big problem.
+to overcome this problem write new producer and consumer with same dto without
+impacting the existing flow. this is required too much work then how to solve this problem?
+
+Confluent kafka introduce avro schema to handle data change and to store those schema it has schema registry.
+
+ 
